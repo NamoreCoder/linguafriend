@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaFriend - AI English Learning for All Ages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --secondary: #10B981;
+            --accent: #8B5CF6;
+            --background: #F9FAFB;
+            --text: #1F2937;
+            --kids-primary: #F59E0B;
+            --kids-secondary: #EC4899;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            scroll-behavior: smooth;
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .tech-gradient {
+            background: linear-gradient(135deg, #4F46E5 0%, #10B981 100%);
+        }
+
+        .kids-gradient {
+            background: linear-gradient(135deg, #F59E0B 0%, #EC4899 100%);
+        }
+
+        .neon-glow {
+            box-shadow: 0 0 10px rgba(79, 70, 229, 0.7), 0 0 20px rgba(79, 70, 229, 0.5);
+        }
+
+        .neon-text {
+            text-shadow: 0 0 5px rgba(79, 70, 229, 0.7), 0 0 10px rgba(79, 70, 229, 0.5);
+        }
+
+        .circuit-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234F46E5' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .sidebar {
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+        }
+
+        .content-section {
+            scroll-margin-top: 80px;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                height: auto;
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                z-index: 50;
+                display: none;
+            }
+            
+            .sidebar.active {
+                display: block;
+            }
+            
+            .content-main {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+
+        /* Particle animation */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(79, 70, 229, 0.3);
+            animation: particle-animation 15s infinite linear;
+        }
+
+        @keyframes particle-animation {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100vw);
+                opacity: 0;
+            }
+        }
+
+        /* Progress bar */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: #f1f1f1;
+            position: fixed;
+            top: 64px;
+            z-index: 100;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--primary);
+            width: 0%;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+<body class="circuit-pattern">
+    <!-- Progress bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Particles background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header/Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 glassmorphism">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="text-3xl font-bold text-indigo-600 neon-text">
+                    <span class="text-indigo-600">Lingua</span><span class="text-emerald-500">Friend</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#features" class="text-gray-700 hover:text-indigo-600 transition-colors">Features</a>
+                <a href="#adults" class="text-gray-700 hover:text-indigo-600 transition-colors">For Adults</a>
+                <a href="#kids" class="text-gray-700 hover:text-indigo-600 transition-colors">For Kids</a>
+                <a href="#ai-features" class="text-gray-700 hover:text-indigo-600 transition-colors">AI Technology</a>
+                <a href="#testimonials" class="text-gray-700 hover:text-indigo-600 transition-colors">Testimonials</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition-colors neon-glow">
+                    Start Learning
+                </button>
+                <button id="mobileMenuBtn" class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="flex justify-end p-4">
+            <button id="closeMenuBtn" class="text-gray-700">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center space-y-6 mt-10">
+            <a href="#features" class="text-xl text-gray-700 hover:text-indigo-600 transition-colors mobile-nav-link">Features</a>
+            <a href="#adults" class="text-xl text-gray-700 hover:text-indigo-600 transition-colors mobile-nav-link">For Adults</a>
+            <a href="#kids" class="text-xl text-gray-700 hover:text-indigo-600 transition-colors mobile-nav-link">For Kids</a>
+            <a href="#ai-features" class="text-xl text-gray-700 hover:text-indigo-600 transition-colors mobile-nav-link">AI Technology</a>
+            <a href="#testimonials" class="text-xl text-gray-700 hover:text-indigo-600 transition-colors mobile-nav-link">Testimonials</a>
+        </div>
+    </div>
+
+    <!-- Main content container -->
+    <div class="flex flex-col md:flex-row pt-16">
+        <!-- Sidebar Navigation (visible on desktop) -->
+        <aside class="sidebar hidden md:block w-64 bg-white shadow-lg fixed left-0 top-16 p-4 overflow-y-auto">
+            <div class="space-y-4">
+                <div class="font-bold text-lg text-indigo-600 mb-4">Navigation</div>
+                <a href="#hero" class="block py-2 px-4 rounded hover:bg-indigo-50 sidebar-link">Home</a>
+                <a href="#features" class="block py-2 px-4 rounded hover:bg-indigo-50 sidebar-link">Key Features</a>
+                <a href="#adults" class="block py-2 px-4 rounded hover:bg-indigo-50 sidebar-link">For Adults</a>
+                <a href="#kids" class="block py-2 px-4 rounded hover:bg-indigo-50 sidebar-link">For Kids</a>
+                <a href="#ai-features" class="block py-2 px-4 rounded hover:bg-indigo-50 sidebar-link">AI Technology</a>
+                <a href="#learning-path" class="block py-2 px-4 rounded hover:bg-indigo-50 sidebar-link">Learning Path</a>
+                <a href="#interactive-demo" class="block py-2 px-4 rounded hover:bg-indigo-50 sidebar-link">Interactive Demo</a>
+                <a href="#testimonials" class="block py-2 px-4 rounded hover:bg-indigo-50 sidebar-link">Testimonials</a>
+                <a href="#statistics" class="block py-2 px-4 rounded hover:bg-indigo-50 sidebar-link">Statistics</a>
+                <a href="#faq" class="block py-2 px-4 rounded hover:bg-indigo-50 sidebar-link">FAQ</a>
+                <a href="#get-started" class="block py-2 px-4 rounded hover:bg-indigo-50 sidebar-link">Get Started</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content-main flex-1 md:ml-64 p-4">
+            <!-- Hero Section -->
+            <section id="hero" class="min-h-screen flex items-center justify-center py-20 content-section">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 mb-10 md:mb-0">
+                            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                                Learn English with <span class="text-indigo-600 neon-text">AI</span> for All Ages
+                            </h1>
+                            <p class="text-xl text-gray-600 mb-8">
+                                Experience the future of language learning with our AI-powered platform designed for both adults and children as young as 4 years old.
+                            </p>
+                            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                                <button class="bg-indigo-600 text-white px-8 py-3 rounded-full text-lg hover:bg-indigo-700 transition-colors neon-glow">
+                                    Start for Adults
+                                </button>
+                                <button class="bg-amber-500 text-white px-8 py-3 rounded-full text-lg hover:bg-amber-600 transition-colors">
+                                    Start for Kids
+                                </button>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 relative">
+                            <div class="relative">
+                                <!-- SVG illustration of people learning with AI -->
+                                <svg class="w-full h-auto float-animation" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+                                        </linearGradient>
+                                        <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1" />
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Background elements -->
+                                    <circle cx="400" cy="300" r="250" fill="#f3f4f6" />
+                                    <path d="M300,150 Q400,50 500,150 T700,150 T900,150" stroke="#4F46E5" stroke-width="2" fill="none" />
+                                    
+                                    <!-- Adult figure -->
+                                    <circle cx="300" cy="250" r="50" fill="url(#grad1)" />
+                                    <rect x="275" y="300" width="50" height="100" rx="10" fill="url(#grad1)" />
+                                    <rect x="275" y="400" width="20" height="80" rx="5" fill="#4F46E5" />
+                                    <rect x="305" y="400" width="20" height="80" rx="5" fill="#4F46E5" />
+                                    <rect x="250" y="320" width="25" height="60" rx="5" fill="url(#grad1)" />
+                                    <rect x="325" y="320" width="25" height="60" rx="5" fill="url(#grad1)" />
+                                    
+                                    <!-- Child figure -->
+                                    <circle cx="500" cy="300" r="35" fill="url(#grad2)" />
+                                    <rect x="485" y="335" width="30" height="60" rx="8" fill="url(#grad2)" />
+                                    <rect x="485" y="395" width="12" height="50" rx="4" fill="#F59E0B" />
+                                    <rect x="503" y="395" width="12" height="50" rx="4" fill="#F59E0B" />
+                                    <rect x="470" y="345" width="15" height="40" rx="4" fill="url(#grad2)" />
+                                    <rect x="515" y="345" width="15" height="40" rx="4" fill="url(#grad2)" />
+                                    
+                                    <!-- AI robot -->
+                                    <rect x="380" y="250" width="80" height="100" rx="15" fill="#4F46E5" opacity="0.8" />
+                                    <circle cx="405" cy="280" r="10" fill="#10B981" />
+                                    <circle cx="435" cy="280" r="10" fill="#10B981" />
+                                    <path d="M400,310 Q420,330 440,310" stroke="#10B981" stroke-width="4" fill="none" />
+                                    <rect x="370" y="350" width="100" height="20" rx="10" fill="#4F46E5" />
+                                    <rect x="395" y="370" width="50" height="60" rx="5" fill="#4F46E5" opacity="0.8" />
+                                    
+                                    <!-- Speech bubbles -->
+                                    <path d="M220,200 Q200,180 220,160 H280 Q300,160 300,180 V200 Q300,220 280,220 H240 L220,240 Z" fill="white" stroke="#4F46E5" stroke-width="2" />
+                                    <text x="250" y="190" text-anchor="middle" fill="#1F2937" font-size="12">Hello!</text>
+                                    
+                                    <path d="M520,230 Q540,210 520,190 H460 Q440,190 440,210 V230 Q440,250 460,250 H500 L520,270 Z" fill="white" stroke="#F59E0B" stroke-width="2" />
+                                    <text x="480" y="220" text-anchor="middle" fill="#1F2937" font-size="12">Hi!</text>
+                                    
+                                    <!-- Digital elements -->
+                                    <circle cx="400" cy="150" r="30" fill="#4F46E5" opacity="0.2" />
+                                    <circle cx="400" cy="150" r="20" fill="#4F46E5" opacity="0.4" />
+                                    <circle cx="400" cy="150" r="10" fill="#4F46E5" opacity="0.6" />
+                                    
+                                    <!-- Connection lines -->
+                                    <line x1="400" y1="180" x2="400" y2="250" stroke="#4F46E5" stroke-width="2" stroke-dasharray="5,5" />
+                                    <line x1="370" y1="150" x2="330" y2="220" stroke="#4F46E5" stroke-width="2" stroke-dasharray="5,5" />
+                                    <line x1="430" y1="150" x2="480" y2="270" stroke="#F59E0B" stroke-width="2" stroke-dasharray="5,5" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section id="features" class="py-20 bg-white content-section">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Key Features</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Feature 1 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
+                                <i class="fas fa-robot text-2xl text-indigo-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">AI Conversation Partner</h3>
+                            <p class="text-gray-600">
+                                Practice English with our advanced AI that adapts to your level, provides real-time feedback, and helps you improve pronunciation and fluency.
+                            </p>
+                        </div>
+                        
+                        <!-- Feature 2 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6">
+                                <i class="fas fa-vr-cardboard text-2xl text-emerald-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">Immersive Learning</h3>
+                            <p class="text-gray-600">
+                                Experience realistic scenarios and virtual environments that make learning English engaging, contextual, and memorable for all ages.
+                            </p>
+                        </div>
+                        
+                        <!-- Feature 3 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                                <i class="fas fa-chart-line text-2xl text-purple-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">Personalized Learning Plan</h3>
+                            <p class="text-gray-600">
+                                Our AI analyzes your strengths and weaknesses to create a customized learning path that evolves as you progress.
+                            </p>
+                        </div>
+                        
+                        <!-- Feature 4 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mb-6">
+                                <i class="fas fa-gamepad text-2xl text-amber-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">Interactive Games & Videos</h3>
+                            <p class="text-gray-600">
+                                Learn through play with age-appropriate games and interactive videos that make language acquisition fun and effective.
+                            </p>
+                        </div>
+                        
+                        <!-- Feature 5 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-6">
+                                <i class="fas fa-book-open text-2xl text-pink-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">AI Storytelling</h3>
+                            <p class="text-gray-600">
+                                Enjoy interactive stories that adapt to your level and interests, with AI characters that respond to your choices and help you learn.
+                            </p>
+                        </div>
+                        
+                        <!-- Feature 6 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                                <i class="fas fa-music text-2xl text-blue-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">Songs & Rhythms</h3>
+                            <p class="text-gray-600">
+                                Learn English through catchy songs and rhythmic patterns that make vocabulary and pronunciation stick in your memory.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- For Adults Section -->
+            <section id="adults" class="py-20 bg-gray-50 content-section">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 mb-10 md:mb-0">
+                            <h2 class="text-3xl md:text-4xl font-bold mb-6">For Adults</h2>
+                            <p class="text-xl text-gray-600 mb-8">
+                                Advanced language learning tailored for adult learners focusing on professional contexts, complex grammar, and nuanced conversation.
+                            </p>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center">
+                                            <i class="fas fa-check text-white text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-semibold">Business English</h3>
+                                        <p class="text-gray-600">Master professional vocabulary, email writing, presentation skills, and negotiation techniques.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center">
+                                            <i class="fas fa-check text-white text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-semibold">Interview Preparation</h3>
+                                        <p class="text-gray-600">Practice with AI interviewers that simulate real job interviews and provide feedback.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center">
+                                            <i class="fas fa-check text-white text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-semibold">Advanced Grammar</h3>
+                                        <p class="text-gray-600">Tackle complex grammatical structures with interactive exercises and real-time correction.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center">
+                                            <i class="fas fa-check text-white text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-semibold">Cultural Nuances</h3>
+                                        <p class="text-gray-600">Learn idioms, slang, and cultural contexts to communicate like a native speaker.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-1/2 pl-0 md:pl-10">
+                            <div class="bg-white rounded-xl shadow-xl overflow-hidden glassmorphism">
+                                <div class="p-1 bg-gradient-to-r from-indigo-600 to-blue-500"></div>
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-6">
+                                        <div class="flex items-center">
+                                            <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
+                                                <i class="fas fa-user-tie text-indigo-600"></i>
+                                            </div>
+                                            <div class="ml-4">
+                                                <h4 class="font-bold">Business Meeting Simulation</h4>
+                                                <p class="text-sm text-gray-500">Practice your professional English</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-500">Level: Advanced</div>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                                        <div class="flex items-start mb-4">
+                                            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0">
+                                                <span class="text-white text-xs font-bold">AI</span>
+                                            </div>
+                                            <div class="ml-3 bg-white p-3 rounded-lg shadow-sm flex-1">
+                                                <p class="text-gray-700">Good morning! I'm Sarah, your AI conversation partner. Today we'll be practicing a quarterly business review meeting. Could you start by presenting the Q3 results to the team?</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-start mb-4 justify-end">
+                                            <div class="mr-3 bg-indigo-50 p-3 rounded-lg shadow-sm max-w-md">
+                                                <p class="text-gray-700">Good morning everyone. I'm pleased to present our Q3 results. Overall, we've seen a 15% increase in revenue compared to last quarter.</p>
+                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0">
+                                                <i class="fas fa-user text-gray-600 text-xs"></i>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-start">
+                                            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0">
+                                                <span class="text-white text-xs font-bold">AI</span>
+                                            </div>
+                                            <div class="ml-3 bg-white p-3 rounded-lg shadow-sm flex-1">
+                                                <p class="text-gray-700">That's excellent news! Could you elaborate on which product lines contributed most to this growth? Also, I noticed you pronounced "revenue" perfectly - great job!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center">
+                                        <input type="text" placeholder="Type your response..." class="flex-1 border border-gray-300 rounded-l-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                        <button class="bg-indigo-600 text-white py-2 px-4 rounded-r-lg hover:bg-indigo-700 transition-colors">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- For Kids Section -->
+            <section id="kids" class="py-20 bg-white content-section">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 order-2 md:order-1">
+                            <div class="bg-white rounded-xl shadow-xl overflow-hidden glassmorphism">
+                                <div class="p-1 bg-gradient-to-r from-amber-500 to-pink-500"></div>
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-6">
+                                        <div class="flex items-center">
+                                            <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                                                <i class="fas fa-dragon text-amber-600"></i>
+                                            </div>
+                                            <div class="ml-4">
+                                                <h4 class="font-bold">Dragon's Adventure</h4>
+                                                <p class="text-sm text-gray-500">Learn colors and animals</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm text-gray-500">Age: 4-6</div>
+                                    </div>
+                                    
+                                    <div class="relative mb-6">
+                                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden bg-amber-100 h-48 flex items-center justify-center">
+                                            <!-- SVG illustration for kids -->
+                                            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                                <!-- Sky background -->
+                                                <rect width="400" height="300" fill="#87CEEB" />
+                                                
+                                                <!-- Sun -->
+                                                <circle cx="50" cy="50" r="30" fill="#FFD700" />
+                                                <circle cx="50" cy="50" r="35" fill="none" stroke="#FFD700" stroke-width="2" />
+                                                <circle cx="50" cy="50" r="40" fill="none" stroke="#FFD700" stroke-width="1" />
+                                                
+                                                <!-- Clouds -->
+                                                <ellipse cx="100" cy="60" rx="25" ry="15" fill="white" />
+                                                <ellipse cx="120" cy="60" rx="20" ry="17" fill="white" />
+                                                <ellipse cx="140" cy="60" rx="15" ry="12" fill="white" />
+                                                
+                                                <ellipse cx="280" cy="40" rx="20" ry="12" fill="white" />
+                                                <ellipse cx="300" cy="40" rx="25" ry="15" fill="white" />
+                                                <ellipse cx="320" cy="40" rx="15" ry="10" fill="white" />
+                                                
+                                                <!-- Green hills -->
+                                                <ellipse cx="200" cy="320" rx="220" ry="70" fill="#7CFC00" />
+                                                
+                                                <!-- Dragon -->
+                                                <g transform="translate(200, 180) scale(0.8)">
+                                                    <!-- Dragon body -->
+                                                    <ellipse cx="0" cy="0" rx="40" ry="20" fill="#9C27B0" />
+                                                    
+                                                    <!-- Dragon head -->
+                                                    <circle cx="35" cy="-10" r="20" fill="#9C27B0" />
+                                                    
+                                                    <!-- Dragon eyes -->
+                                                    <circle cx="42" cy="-15" r="5" fill="white" />
+                                                    <circle cx="42" cy="-15" r="2" fill="black" />
+                                                    
+                                                    <!-- Dragon horns -->
+                                                    <path d="M35,-30 L45,-40 L40,-25 Z" fill="#9C27B0" />
+                                                    <path d="M25,-30 L15,-40 L20,-25 Z" fill="#9C27B0" />
+                                                    
+                                                    <!-- Dragon tail -->
+                                                    <path d="M-40,0 C-60,20 -70,-20 -80,0" stroke="#9C27B0" stroke-width="10" fill="none" />
+                                                    
+                                                    <!-- Dragon legs -->
+                                                    <rect x="-20" y="15" width="8" height="20" rx="4" fill="#9C27B0" />
+                                                    <rect x="15" y="15" width="8" height="20" rx="4" fill="#9C27B0" />
+                                                    
+                                                    <!-- Dragon wings -->
+                                                    <path d="M0,-10 C-20,-40 -40,-30 -20,0" fill="#BA68C8" />
+                                                </g>
+                                                
+                                                <!-- Speech bubble -->
+                                                <path d="M250,100 Q270,80 290,100 H340 Q360,100 360,120 V150 Q360,170 340,170 H300 L290,190 L280,170 H250 Q230,170 230,150 V120 Q230,100 250,100 Z" fill="white" stroke="#333" stroke-width="2" />
+                                                <text x="295" y="135" text-anchor="middle" fill="#333" font-size="14" font-family="Arial">What color am I?</text>
+                                                
+                                                <!-- Buttons -->
+                                                <rect x="100" y="220" width="60" height="30" rx="15" fill="#FF5722" />
+                                                <text x="130" y="240" text-anchor="middle" fill="white" font-size="14" font-family="Arial">Red</text>
+                                                
+                                                <rect x="170" y="220" width="60" height="30" rx="15" fill="#2196F3" />
+                                                <text x="200" y="240" text-anchor="middle" fill="white" font-size="14" font-family="Arial">Blue</text>
+                                                
+                                                <rect x="240" y="220" width="60" height="30" rx="15" fill="#9C27B0" />
+                                                <text x="270" y="240" text-anchor="middle" fill="white" font-size="14" font-family="Arial">Purple</text>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <button class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-colors">
+                                            Red
+                                        </button>
+                                        <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+                                            Blue
+                                        </button>
+                                        <button class="bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors">
+                                            Purple
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-1/2 mb-10 md:mb-0 order-1 md:order-2 md:pl-10">
+                            <h2 class="text-3xl md:text-4xl font-bold mb-6">For Kids</h2>
+                            <p class="text-xl text-gray-600 mb-8">
+                                Fun, engaging, and colorful learning experiences designed specifically for young children aged 4 and up.
+                            </p>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <div class="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center">
+                                            <i class="fas fa-check text-white text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-semibold">Animated Characters</h3>
+                                        <p class="text-gray-600">Friendly AI characters guide children through fun learning adventures.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <div class="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center">
+                                            <i class="fas fa-check text-white text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-semibold">Interactive Stories</h3>
+                                        <p class="text-gray-600">Engaging tales where children can choose what happens next and learn vocabulary.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <div class="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center">
+                                            <i class="fas fa-check text-white text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-semibold">Sing-Along Songs</h3>
+                                        <p class="text-gray-600">Catchy tunes that teach basic vocabulary, colors, numbers, and simple phrases.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <div class="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center">
+                                            <i class="fas fa-check text-white text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-semibold">Virtual Rewards</h3>
+                                        <p class="text-gray-600">Stickers, badges, and virtual pets that children can collect as they learn.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Technology Section -->
+            <section id="ai-features" class="py-20 bg-gray-50 content-section">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">AI Technology</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-6">Speech Recognition & Analysis</h3>
+                            
+                            <div class="bg-white rounded-xl shadow-lg p-6 mb-8 glassmorphism">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-microphone text-xl text-indigo-600"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-bold">Advanced Speech Recognition</h4>
+                                    </div>
+                                </div>
+                                
+                                <p class="text-gray-600 mb-4">
+                                    Our AI can understand various accents and speech patterns, providing accurate transcription and analysis.
+                                </p>
+                                
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm font-medium">Pronunciation Accuracy</span>
+                                        <span class="text-sm font-medium">85%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between mb-2 mt-4">
+                                        <span class="text-sm font-medium">Accent Recognition</span>
+                                        <span class="text-sm font-medium">92%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 92%"></div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between mb-2 mt-4">
+                                        <span class="text-sm font-medium">Speech Fluency Analysis</span>
+                                        <span class="text-sm font-medium">78%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 78%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl shadow-lg p-6 glassmorphism">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-brain text-xl text-emerald-600"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-bold">Natural Language Processing</h4>
+                                    </div>
+                                </div>
+                                
+                                <p class="text-gray-600 mb-4">
+                                    Our AI understands context, idioms, and can engage in natural conversations while providing learning opportunities.
+                                </p>
+                                
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0">
+                                            <i class="fas fa-user text-gray-600 text-xs"></i>
+                                        </div>
+                                        <div class="ml-3 bg-gray-100 p-3 rounded-lg shadow-sm">
+                                            <p class="text-gray-700">I'm feeling under the weather today.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0">
+                                            <span class="text-white text-xs font-bold">AI</span>
+                                        </div>
+                                        <div class="ml-3 bg-white p-3 rounded-lg shadow-sm">
+                                            <p class="text-gray-700">I'm sorry to hear you're not feeling well. "Under the weather" is an idiom that means feeling sick or unwell. Is there anything I can do to help?</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-6">Personalization & Adaptation</h3>
+                            
+                            <div class="bg-white rounded-xl shadow-lg p-6 mb-8 glassmorphism">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-chart-pie text-xl text-purple-600"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-bold">Learning Analytics</h4>
+                                    </div>
+                                </div>
+                                
+                                <p class="text-gray-600 mb-4">
+                                    Our AI tracks your progress and adapts content to focus on areas that need improvement.
+                                </p>
+                                
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <canvas id="skillsRadarChart" width="300" height="300"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl shadow-lg p-6 glassmorphism">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-lightbulb text-xl text-amber-600"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-bold">Adaptive Learning Path</h4>
+                                    </div>
+                                </div>
+                                
+                                <p class="text-gray-600 mb-4">
+                                    As you progress, our AI adjusts difficulty and introduces new concepts at the optimal pace for your learning style.
+                                </p>
+                                
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <div class="relative">
+                                        <!-- Learning path visualization -->
+                                        <div class="h-20 relative">
+                                            <div class="absolute top-1/2 left-0 right-0 h-1 bg-gray-300 transform -translate-y-1/2"></div>
+                                            
+                                            <div class="absolute top-1/2 left-0 w-3/4 h-1 bg-gradient-to-r from-indigo-600 to-emerald-500 transform -translate-y-1/2 rounded"></div>
+                                            
+                                            <!-- Milestones -->
+                                            <div class="absolute top-1/2 left-0 w-6 h-6 bg-indigo-600 rounded-full transform -translate-y-1/2 -translate-x-1/2 flex items-center justify-center">
+                                                <i class="fas fa-check text-white text-xs"></i>
+                                            </div>
+                                            
+                                            <div class="absolute top-1/2 left-1/4 w-6 h-6 bg-indigo-600 rounded-full transform -translate-y-1/2 -translate-x-1/2 flex items-center justify-center">
+                                                <i class="fas fa-check text-white text-xs"></i>
+                                            </div>
+                                            
+                                            <div class="absolute top-1/2 left-1/2 w-6 h-6 bg-indigo-600 rounded-full transform -translate-y-1/2 -translate-x-1/2 flex items-center justify-center">
+                                                <i class="fas fa-check text-white text-xs"></i>
+                                            </div>
+                                            
+                                            <div class="absolute top-1/2 left-3/4 w-8 h-8 bg-emerald-500 rounded-full transform -translate-y-1/2 -translate-x-1/2 border-4 border-white flex items-center justify-center">
+                                                <i class="fas fa-user text-white text-xs"></i>
+                                            </div>
+                                            
+                                            <div class="absolute top-1/2 left-full w-6 h-6 bg-gray-300 rounded-full transform -translate-y-1/2 -translate-x-1/2 flex items-center justify-center">
+                                                <i class="fas fa-flag text-white text-xs"></i>
+                                            </div>
+                                            
+                                            <!-- Labels -->
+                                            <div class="absolute top-0 left-0 transform -translate-x-1/2 text-xs text-center">
+                                                <div class="font-semibold">Beginner</div>
+                                                <div class="text-gray-500">Completed</div>
+                                            </div>
+                                            
+                                            <div class="absolute top-0 left-1/4 transform -translate-x-1/2 text-xs text-center">
+                                                <div class="font-semibold">Elementary</div>
+                                                <div class="text-gray-500">Completed</div>
+                                            </div>
+                                            
+                                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 text-xs text-center">
+                                                <div class="font-semibold">Intermediate</div>
+                                                <div class="text-gray-500">Completed</div>
+                                            </div>
+                                            
+                                            <div class="absolute top-0 left-3/4 transform -translate-x-1/2 text-xs text-center">
+                                                <div class="font-semibold">Upper Intermediate</div>
+                                                <div class="text-gray-500">Current</div>
+                                            </div>
+                                            
+                                            <div class="absolute top-0 left-full transform -translate-x-1/2 text-xs text-center">
+                                                <div class="font-semibold">Advanced</div>
+                                                <div class="text-gray-500">Next</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Learning Path Section -->
+            <section id="learning-path" class="py-20 bg-white content-section">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Your Learning Journey</h2>
+                    <p class="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">
+                        Our AI creates a personalized learning path that evolves with your progress, ensuring you're always challenged but never overwhelmed.
+                    </p>
+                    
+                    <div class="relative">
+                        <!-- Desktop timeline -->
+                        <div class="hidden md:block">
+                            <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-indigo-200 transform -translate-x-1/2"></div>
+                            
+                            <!-- Step 1 -->
+                            <div class="relative mb-24">
+                                <div class="absolute left-1/2 w-12 h-12 bg-indigo-600 rounded-full transform -translate-x-1/2 flex items-center justify-center z-10">
+                                    <span class="text-white font-bold">1</span>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-1/2 pr-16 text-right">
+                                        <h3 class="text-2xl font-bold mb-2">Assessment</h3>
+                                        <p class="text-gray-600">
+                                            Take a comprehensive assessment to determine your current level, strengths, and areas for improvement.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="w-1/2 pl-16">
+                                        <div class="bg-white rounded-xl shadow-lg p-4 glassmorphism">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="font-semibold">Speaking Assessment</div>
+                                                <div class="text-sm text-gray-500">10 minutes</div>
+                                            </div>
+                                            <div class="space-y-2">
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-microphone text-indigo-600 mr-2"></i>
+                                                    <span>Pronunciation Test</span>
+                                                </div>
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-comments text-indigo-600 mr-2"></i>
+                                                    <span>Conversation Skills</span>
+                                                </div>
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-book text-indigo-600 mr-2"></i>
+                                                    <span>Vocabulary Range</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2 -->
+                            <div class="relative mb-24">
+                                <div class="absolute left-1/2 w-12 h-12 bg-indigo-600 rounded-full transform -translate-x-1/2 flex items-center justify-center z-10">
+                                    <span class="text-white font-bold">2</span>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-1/2 pr-16">
+                                        <div class="bg-white rounded-xl shadow-lg p-4 glassmorphism">
+                                            <div class="flex items-center mb-4">
+                                                <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                                                    <i class="fas fa-chart-line text-indigo-600"></i>
+                                                </div>
+                                                <div class="ml-4 font-semibold">Personalized Plan</div>
+                                            </div>
+                                            <div class="space-y-2">
+                                                <div class="flex items-center justify-between">
+                                                    <span>Daily Practice</span>
+                                                    <span class="text-sm text-gray-500">15 min</span>
+                                                </div>
+                                                <div class="flex items-center justify-between">
+                                                    <span>Conversation Practice</span>
+                                                    <span class="text-sm text-gray-500">3x week</span>
+                                                </div>
+                                                <div class="flex items-center justify-between">
+                                                    <span>Vocabulary Building</span>
+                                                    <span class="text-sm text-gray-500">Daily</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="w-1/2 pl-16 text-left">
+                                        <h3 class="text-2xl font-bold mb-2">Personalized Plan</h3>
+                                        <p class="text-gray-600">
+                                            Our AI creates a customized learning plan based on your goals, schedule, and current proficiency level.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3 -->
+                            <div class="relative mb-24">
+                                <div class="absolute left-1/2 w-12 h-12 bg-indigo-600 rounded-full transform -translate-x-1/2 flex items-center justify-center z-10">
+                                    <span class="text-white font-bold">3</span>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-1/2 pr-16 text-right">
+                                        <h3 class="text-2xl font-bold mb-2">Interactive Learning</h3>
+                                        <p class="text-gray-600">
+                                            Engage with AI conversation partners, interactive games, and immersive scenarios to practice your skills.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="w-1/2 pl-16">
+                                        <div class="bg-white rounded-xl shadow-lg p-4 glassmorphism">
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div class="bg-indigo-50 p-3 rounded-lg">
+                                                    <div class="flex items-center mb-2">
+                                                        <i class="fas fa-robot text-indigo-600 mr-2"></i>
+                                                        <span class="font-semibold">AI Conversations</span>
+                                                    </div>
+                                                    <p class="text-sm text-gray-600">Practice real-life scenarios</p>
+                                                </div>
+                                                
+                                                <div class="bg-emerald-50 p-3 rounded-lg">
+                                                    <div class="flex items-center mb-2">
+                                                        <i class="fas fa-gamepad text-emerald-600 mr-2"></i>
+                                                        <span class="font-semibold">Language Games</span>
+                                                    </div>
+                                                    <p class="text-sm text-gray-600">Fun vocabulary building</p>
+                                                </div>
+                                                
+                                                <div class="bg-amber-50 p-3 rounded-lg">
+                                                    <div class="flex items-center mb-2">
+                                                        <i class="fas fa-video text-amber-600 mr-2"></i>
+                                                        <span class="font-semibold">Video Lessons</span>
+                                                    </div>
+                                                    <p class="text-sm text-gray-600">Visual learning experiences</p>
+                                                </div>
+                                                
+                                                <div class="bg-purple-50 p-3 rounded-lg">
+                                                    <div class="flex items-center mb-2">
+                                                        <i class="fas fa-book-open text-purple-600 mr-2"></i>
+                                                        <span class="font-semibold">Stories</span>
+                                                    </div>
+                                                    <p class="text-sm text-gray-600">Interactive reading practice</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4 -->
+                            <div class="relative">
+                                <div class="absolute left-1/2 w-12 h-12 bg-indigo-600 rounded-full transform -translate-x-1/2 flex items-center justify-center z-10">
+                                    <span class="text-white font-bold">4</span>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-1/2 pr-16">
+                                        <div class="bg-white rounded-xl shadow-lg p-4 glassmorphism">
+                                            <div class="flex items-center mb-4">
+                                                <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                                                    <i class="fas fa-chart-bar text-indigo-600"></i>
+                                                </div>
+                                                <div class="ml-4 font-semibold">Progress Tracking</div>
+                                            </div>
+                                            <div>
+                                                <canvas id="progressChart" width="300" height="200"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="w-1/2 pl-16 text-left">
+                                        <h3 class="text-2xl font-bold mb-2">Track Progress</h3>
+                                        <p class="text-gray-600">
+                                            Monitor your improvement with detailed analytics, achievement badges, and milestone celebrations.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Mobile timeline -->
+                        <div class="md:hidden space-y-8">
+                            <!-- Step 1 -->
+                            <div class="relative pl-10">
+                                <div class="absolute left-0 top-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center z-10">
+                                    <span class="text-white font-bold">1</span>
+                                </div>
+                                <div class="border-l-2 border-indigo-200 pl-6 pb-8">
+                                    <h3 class="text-xl font-bold mb-2">Assessment</h3>
+                                    <p class="text-gray-600 mb-4">
+                                        Take a comprehensive assessment to determine your current level, strengths, and areas for improvement.
+                                    </p>
+                                    <div class="bg-white rounded-xl shadow-lg p-4 glassmorphism">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <div class="font-semibold">Speaking Assessment</div>
+                                            <div class="text-sm text-gray-500">10 minutes</div>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <div class="flex items-center">
+                                                <i class="fas fa-microphone text-indigo-600 mr-2"></i>
+                                                <span>Pronunciation Test</span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <i class="fas fa-comments text-indigo-600 mr-2"></i>
+                                                <span>Conversation Skills</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2 -->
+                            <div class="relative pl-10">
+                                <div class="absolute left-0 top-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center z-10">
+                                    <span class="text-white font-bold">2</span>
+                                </div>
+                                <div class="border-l-2 border-indigo-200 pl-6 pb-8">
+                                    <h3 class="text-xl font-bold mb-2">Personalized Plan</h3>
+                                    <p class="text-gray-600 mb-4">
+                                        Our AI creates a customized learning plan based on your goals, schedule, and current proficiency level.
+                                    </p>
+                                    <div class="bg-white rounded-xl shadow-lg p-4 glassmorphism">
+                                        <div class="flex items-center mb-4">
+                                            <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-chart-line text-indigo-600"></i>
+                                            </div>
+                                            <div class="ml-4 font-semibold">Personalized Plan</div>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <div class="flex items-center justify-between">
+                                                <span>Daily Practice</span>
+                                                <span class="text-sm text-gray-500">15 min</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>Conversation Practice</span>
+                                                <span class="text-sm text-gray-500">3x week</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3 -->
+                            <div class="relative pl-10">
+                                <div class="absolute left-0 top-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center z-10">
+                                    <span class="text-white font-bold">3</span>
+                                </div>
+                                <div class="border-l-2 border-indigo-200 pl-6 pb-8">
+                                    <h3 class="text-xl font-bold mb-2">Interactive Learning</h3>
+                                    <p class="text-gray-600 mb-4">
+                                        Engage with AI conversation partners, interactive games, and immersive scenarios to practice your skills.
+                                    </p>
+                                    <div class="bg-white rounded-xl shadow-lg p-4 glassmorphism">
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="bg-indigo-50 p-3 rounded-lg">
+                                                <div class="flex items-center mb-2">
+                                                    <i class="fas fa-robot text-indigo-600 mr-2"></i>
+                                                    <span class="font-semibold">AI Conversations</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bg-emerald-50 p-3 rounded-lg">
+                                                <div class="flex items-center mb-2">
+                                                    <i class="fas fa-gamepad text-emerald-600 mr-2"></i>
+                                                    <span class="font-semibold">Language Games</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4 -->
+                            <div class="relative pl-10">
+                                <div class="absolute left-0 top-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center z-10">
+                                    <span class="text-white font-bold">4</span>
+                                </div>
+                                <div class="border-l-2 border-indigo-200 pl-6">
+                                    <h3 class="text-xl font-bold mb-2">Track Progress</h3>
+                                    <p class="text-gray-600 mb-4">
+                                        Monitor your improvement with detailed analytics, achievement badges, and milestone celebrations.
+                                    </p>
+                                    <div class="bg-white rounded-xl shadow-lg p-4 glassmorphism">
+                                        <div class="flex items-center mb-4">
+                                            <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-chart-bar text-indigo-600"></i>
+                                            </div>
+                                            <div class="ml-4 font-semibold">Progress Tracking</div>
+                                        </div>
+                                        <div>
+                                            <canvas id="mobileProgressChart" width="250" height="150"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Demo Section -->
+            <section id="interactive-demo" class="py-20 bg-gray-50 content-section">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Try It Yourself</h2>
+                    <p class="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">
+                        Experience how our AI adapts to different learning styles and ages with this interactive demo.
+                    </p>
+                    
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/2">
+                            <div class="bg-white rounded-xl shadow-xl overflow-hidden glassmorphism h-full">
+                                <div class="p-1 bg-gradient-to-r from-indigo-600 to-blue-500"></div>
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-6">
+                                        <div class="flex items-center">
+                                            <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
+                                                <i class="fas fa-user-tie text-indigo-600"></i>
+                                            </div>
+                                            <div class="ml-4">
+                                                <h4 class="font-bold">Adult Mode</h4>
+                                                <p class="text-sm text-gray-500">Business English Practice</p>
+                                            </div>
+                                        </div>
+                                        <button class="text-indigo-600 hover:text-indigo-800">
+                                            <i class="fas fa-volume-up"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50 rounded-lg p-4 mb-4 h-64 overflow-y-auto">
+                                        <div class="flex items-start mb-4">
+                                            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0">
+                                                <span class="text-white text-xs font-bold">AI</span>
+                                            </div>
+                                            <div class="ml-3 bg-white p-3 rounded-lg shadow-sm flex-1">
+                                                <p class="text-gray-700">Hello! I'm your AI language partner. Let's practice a job interview scenario. Could you tell me about your professional background and why you're interested in this position?</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="adultConversation">
+                                            <!-- Conversation will be dynamically added here -->
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center">
+                                        <input type="text" id="adultInput" placeholder="Type your response..." class="flex-1 border border-gray-300 rounded-l-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                        <button id="adultSendBtn" class="bg-indigo-600 text-white py-2 px-4 rounded-r-lg hover:bg-indigo-700 transition-colors">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-1/2">
+                            <div class="bg-white rounded-xl shadow-xl overflow-hidden glassmorphism h-full">
+                                <div class="p-1 bg-gradient-to-r from-amber-500 to-pink-500"></div>
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-6">
+                                        <div class="flex items-center">
+                                            <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                                                <i class="fas fa-child text-amber-600"></i>
+                                            </div>
+                                            <div class="ml-4">
+                                                <h4 class="font-bold">Kids Mode</h4>
+                                                <p class="text-sm text-gray-500">Fun Learning Adventure</p>
+                                            </div>
+                                        </div>
+                                        <button class="text-amber-600 hover:text-amber-800">
+                                            <i class="fas fa-volume-up"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50 rounded-lg p-4 mb-4 h-64 overflow-y-auto">
+                                        <div class="flex items-start mb-4">
+                                            <div class="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center flex-shrink-0">
+                                                <i class="fas fa-dragon text-white"></i>
+                                            </div>
+                                            <div class="ml-3 bg-white p-3 rounded-lg shadow-sm flex-1">
+                                                <p class="text-gray-700">Hi there! I'm Drago the friendly dragon! Let's learn about colors today! What's your favorite color?</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="kidsConversation">
+                                            <!-- Conversation will be dynamically added here -->
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <button class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-colors kids-response-btn" data-response="Red">
+                                            Red
+                                        </button>
+                                        <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors kids-response-btn" data-response="Blue">
+                                            Blue
+                                        </button>
+                                        <button class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors kids-response-btn" data-response="Green">
+                                            Green
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section id="testimonials" class="py-20 bg-white content-section">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">What Our Users Say</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Testimonial 1 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <span class="text-indigo-600 font-bold">JD</span>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-bold">Jessica Davis</h4>
+                                    <p class="text-sm text-gray-500">Business Professional</p>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex text-amber-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">
+                                "The first time I chatted with the AI teacher, I thought I was talking to a real person! It understands my learning needs and creates personalized lessons that have dramatically improved my business English."
+                            </p>
+                        </div>
+                        
+                        <!-- Testimonial 2 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
+                                    <span class="text-emerald-600 font-bold">MR</span>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-bold">Michael Rodriguez</h4>
+                                    <p class="text-sm text-gray-500">Parent of 5-year-old</p>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex text-amber-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">
+                                "My daughter loves the colorful characters and games. She's learning English without even realizing it! The AI adapts perfectly to her attention span and makes learning fun. She asks to practice every day!"
+                            </p>
+                        </div>
+                        
+                        <!-- Testimonial 3 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                                    <span class="text-purple-600 font-bold">AK</span>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-bold">Aisha Khan</h4>
+                                    <p class="text-sm text-gray-500">English Teacher</p>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex text-amber-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">
+                                "As an English teacher, I'm impressed by the accuracy and adaptability of this platform. I recommend it to all my students for additional practice. The AI provides detailed feedback that complements my classroom teaching."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section id="statistics" class="py-20 bg-gray-50 content-section">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Our Impact</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Stat 1 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-users text-2xl text-indigo-600"></i>
+                            </div>
+                            <div class="text-4xl font-bold text-indigo-600 mb-2" id="userCount">0</div>
+                            <p class="text-gray-600">Active Users</p>
+                        </div>
+                        
+                        <!-- Stat 2 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-globe text-2xl text-emerald-600"></i>
+                            </div>
+                            <div class="text-4xl font-bold text-emerald-600 mb-2" id="countryCount">0</div>
+                            <p class="text-gray-600">Countries</p>
+                        </div>
+                        
+                        <!-- Stat 3 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-comment-dots text-2xl text-amber-600"></i>
+                            </div>
+                            <div class="text-4xl font-bold text-amber-600 mb-2" id="conversationCount">0</div>
+                            <p class="text-gray-600">Conversations</p>
+                        </div>
+                        
+                        <!-- Stat 4 -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow glassmorphism">
+                            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-graduation-cap text-2xl text-purple-600"></i>
+                            </div>
+                            <div class="text-4xl font-bold text-purple-600 mb-2" id="lessonCount">0</div>
+                            <p class="text-gray-600">Lessons Completed</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-16">
+                        <div class="bg-white rounded-xl shadow-lg p-6 glassmorphism">
+                            <h3 class="text-2xl font-bold mb-6 text-center">Learning Effectiveness</h3>
+                            <div class="h-80">
+                                <canvas id="effectivenessChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section id="faq" class="py-20 bg-white content-section">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Frequently Asked Questions</h2>
+                    
+                    <div class="max-w-3xl mx-auto">
+                        <!-- FAQ Item 1 -->
+                        <div class="mb-6">
+                            <button class="flex items-center justify-between w-full bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow glassmorphism faq-toggle">
+                                <span class="text-lg font-semibold">How does the AI adapt to different ages?</span>
+                                <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                            </button>
+                            <div class="bg-white mt-2 p-4 rounded-lg shadow-md hidden faq-content">
+                                <p class="text-gray-600">
+                                    Our AI uses different teaching approaches based on age. For children, it employs colorful visuals, simple language, games, and rewards to maintain engagement. For adults, it focuses on practical scenarios, complex grammar, and professional vocabulary. The system continuously learns from interactions to better personalize the experience.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 2 -->
+                        <div class="mb-6">
+                            <button class="flex items-center justify-between w-full bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow glassmorphism faq-toggle">
+                                <span class="text-lg font-semibold">How accurate is the speech recognition?</span>
+                                <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                            </button>
+                            <div class="bg-white mt-2 p-4 rounded-lg shadow-md hidden faq-content">
+                                <p class="text-gray-600">
+                                    Our speech recognition technology is highly accurate and can understand various accents and speech patterns. It's specifically trained to recognize common pronunciation challenges for language learners. The system provides detailed feedback on pronunciation, intonation, and rhythm, helping you improve your speaking skills effectively.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 3 -->
+                        <div class="mb-6">
+                            <button class="flex items-center justify-between w-full bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow glassmorphism faq-toggle">
+                                <span class="text-lg font-semibold">Can parents monitor their child's progress?</span>
+                                <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                            </button>
+                            <div class="bg-white mt-2 p-4 rounded-lg shadow-md hidden faq-content">
+                                <p class="text-gray-600">
+                                    Yes, parents have access to a dedicated dashboard that shows their child's learning progress, time spent, skills improved, and areas that need more practice. Parents can also review conversation histories, completed activities, and receive weekly progress reports via email. The platform includes parental controls to manage session duration and content.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 4 -->
+                        <div class="mb-6">
+                            <button class="flex items-center justify-between w-full bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow glassmorphism faq-toggle">
+                                <span class="text-lg font-semibold">How much time should be spent learning each day?</span>
+                                <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                            </button>
+                            <div class="bg-white mt-2 p-4 rounded-lg shadow-md hidden faq-content">
+                                <p class="text-gray-600">
+                                    For optimal results, we recommend 15-20 minutes daily for children and 20-30 minutes for adults. Consistency is more important than duration. Our AI will suggest ideal session lengths based on age, attention span, and learning goals. The platform also includes features to prevent fatigue and maintain engagement during longer sessions.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 5 -->
+                        <div class="mb-6">
+                            <button class="flex items-center justify-between w-full bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow glassmorphism faq-toggle">
+                                <span class="text-lg font-semibold">Is internet connection always required?</span>
+                                <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                            </button>
+                            <div class="bg-white mt-2 p-4 rounded-lg shadow-md hidden faq-content">
+                                <p class="text-gray-600">
+                                    While most features require an internet connection for the AI to function optimally, we offer offline mode for certain activities like vocabulary review, reading practice, and pre-downloaded lessons. Once back online, progress syncs automatically, and the AI adapts future lessons based on offline activity performance.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Get Started Section -->
+            <section id="get-started" class="py-20 bg-gradient-to-r from-indigo-600 to-purple-600 text-white content-section">
+                <div class="container mx-auto px-4 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your English Journey?</h2>
+                    <p class="text-xl mb-10 max-w-2xl mx-auto">
+                        Join thousands of learners worldwide who are improving their English skills with our AI-powered platform.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                        <button class="bg-white text-indigo-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition-colors">
+                            Start Free Trial
+                        </button>
+                        <button class="border-2 border-white text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-white hover:bg-opacity-10 transition-colors">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="bg-gray-800 text-white py-12">
+                <div class="container mx-auto px-4">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <div>
+                            <h3 class="text-xl font-bold mb-4">LinguaFriend</h3>
+                            <p class="text-gray-400">
+                                AI-powered English learning for all ages, making language acquisition fun, effective, and personalized.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4">Features</h4>
+                            <ul class="space-y-2">
+                                <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">AI Conversation</a></li>
+                                <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Immersive Learning</a></li>
+                                <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Personalized Plans</a></li>
+                                <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Interactive Games</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                            <ul class="space-y-2">
+                                <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                                <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+                                <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Community</a></li>
+                                <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                            <div class="flex space-x-4 mb-4">
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                    <i class="fab fa-facebook-f text-xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                    <i class="fab fa-twitter text-xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                    <i class="fab fa-linkedin-in text-xl"></i>
+                                </a>
+                            </div>
+                            <p class="text-gray-400">
+                                Subscribe to our newsletter for updates and tips.
+                            </p>
+                            <div class="mt-2 flex">
+                                <input type="email" placeholder="Your email" class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1">
+                                <button class="bg-indigo-600 text-white px-4 py-2 rounded-r-lg hover:bg-indigo-700 transition-colors">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-400 mb-4 md:mb-0">
+                            &copy; 2023 LinguaFriend. All rights reserved.
+                        </p>
+                        <div class="flex space-x-6">
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- Citation Section -->
+            <section class="py-10 bg-gray-100">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-2xl font-bold mb-6">Citations</h2>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <ul class="space-y-4">
+                            <li>
+                                <p class="text-gray-700"><strong>Speak：与众不同的AI英语学习APP</strong></p>
+                                <p class="text-gray-600">URL: <a href="https://www.speak.com/cn" target="_blank" class="text-indigo-600 hover:underline">https://www.speak.com/cn</a></p>
+                            </li>
+                            <li>
+                                <p class="text-gray-700"><strong>Timtalk - AI学英语、练口语</strong></p>
+                                <p class="text-gray-600">URL: <a href="https://timtalkapp.com/" target="_blank" class="text-indigo-600 hover:underline">https://timtalkapp.com/</a></p>
+                            </li>
+                            <li>
+                                <p class="text-gray-700"><strong>DeepLearning.AI Natural Language Processing Specialization</strong></p>
+                                <p class="text-gray-600">Author: FahdSeddik</p>
+                                <p class="text-gray-600">URL: <a href="https://github.com/FahdSeddik/DeepLearning.AI-Natural-Language-Processing-Specialization" target="_blank" class="text-indigo-600 hover:underline">https://github.com/FahdSeddik/DeepLearning.AI-Natural-Language-Processing-Specialization</a></p>
+                            </li>
+                            <li>
+                                <p class="text-gray-700"><strong>Microsoft Student Partner Workshop Learning Materials AI NLP</strong></p>
+                                <p class="text-gray-600">Author: soumyadip007</p>
+                                <p class="text-gray-600">URL: <a href="https://github.com/soumyadip007/Microsoft-Student-Partner-Workshop-Learning-Materials-AI-NLP" target="_blank" class="text-indigo-600 hover:underline">https://github.com/soumyadip007/Microsoft-Student-Partner-Workshop-Learning-Materials-AI-NLP</a></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.remove('translate-x-full');
+            });
+            
+            closeMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('translate-x-full');
+            });
+            
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('translate-x-full');
+                });
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // FAQ toggles
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+            
+            faqToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    content.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+
+            // Create particles
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation duration and delay
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 10;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particles.appendChild(particle);
+            }
+
+            // Progress bar
+            window.onscroll = function() {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("progressBar").style.width = scrolled + "%";
+            };
+
+            // Highlight active sidebar link based on scroll position
+            const sections = document.querySelectorAll('.content-section');
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                sidebarLinks.forEach(link => {
+                    link.classList.remove('bg-indigo-50', 'text-indigo-600');
+                    const href = link.getAttribute('href').substring(1);
+                    if (href === current) {
+                        link.classList.add('bg-indigo-50', 'text-indigo-600');
+                    }
+                });
+            });
+
+            // Charts
+            // Skills radar chart
+            const skillsRadarCtx = document.getElementById('skillsRadarChart').getContext('2d');
+            const skillsRadarChart = new Chart(skillsRadarCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Speaking', 'Listening', 'Reading', 'Writing', 'Vocabulary', 'Grammar'],
+                    datasets: [{
+                        label: 'Current Skills',
+                        data: [70, 85, 65, 60, 75, 55],
+                        backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        pointBackgroundColor: 'rgba(79, 70, 229, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(79, 70, 229, 1)'
+                    }, {
+                        label: 'Target Skills',
+                        data: [90, 95, 85, 80, 90, 75],
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                        pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(16, 185, 129, 1)'
+                    }]
+                },
+                options: {
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+
+            // Progress chart
+            const progressCtx = document.getElementById('progressChart').getContext('2d');
+            const progressChart = new Chart(progressCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                    datasets: [{
+                        label: 'Speaking Score',
+                        data: [65, 68, 72, 75, 82, 85],
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 60,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Mobile progress chart
+            const mobileProgressCtx = document.getElementById('mobileProgressChart').getContext('2d');
+            const mobileProgressChart = new Chart(mobileProgressCtx, {
+                type: 'line',
+                data: {
+                    labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6'],
+                    datasets: [{
+                        label: 'Score',
+                        data: [65, 68, 72, 75, 82, 85],
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 60,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Effectiveness chart
+            const effectivenessCtx = document.getElementById('effectivenessChart').getContext('2d');
+            const effectivenessChart = new Chart(effectivenessCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Traditional Methods', 'Mobile Apps', 'Online Courses', 'LinguaFriend AI'],
+                    datasets: [{
+                        label: 'Learning Speed (weeks to fluency)',
+                        data: [52, 40, 36, 24],
+                        backgroundColor: [
+                            'rgba(156, 163, 175, 0.6)',
+                            'rgba(245, 158, 11, 0.6)',
+                            'rgba(16, 185, 129, 0.6)',
+                            'rgba(79, 70, 229, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(156, 163, 175, 1)',
+                            'rgba(245, 158, 11, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(79, 70, 229, 1)'
+                        ],
+                        borderWidth: 1
+                    }, {
+                        label: 'Retention Rate (%)',
+                        data: [45, 60, 70, 85],
+                        backgroundColor: [
+                            'rgba(156, 163, 175, 0.2)',
+                            'rgba(245, 158, 11, 0.2)',
+                            'rgba(16, 185, 129, 0.2)',
+                            'rgba(79, 70, 229, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(156, 163, 175, 1)',
+                            'rgba(245, 158, 11, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(79, 70, 229, 1)'
+                        ],
+                        borderWidth: 1,
+                        type: 'line',
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Weeks to Fluency'
+                            }
+                        },
+                        y1: {
+                            beginAtZero: true,
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Retention Rate (%)'
+                            },
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Animated counters
+            function animateCounter(elementId, targetValue) {
+                const element = document.getElementById(elementId);
+                const duration = 2000; // 2 seconds
+                const startTime = Date.now();
+                const startValue = 0;
+                
+                function updateCounter() {
+                    const currentTime = Date.now();
+                    const elapsedTime = currentTime - startTime;
+                    
+                    if (elapsedTime < duration) {
+                        const value = Math.round(startValue + (targetValue - startValue) * (elapsedTime / duration));
+                        element.textContent = value.toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        element.textContent = targetValue.toLocaleString();
+                    }
+                }
+                
+                updateCounter();
+            }
+
+            // Intersection Observer for triggering animations when elements come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.id === 'statistics') {
+                            animateCounter('userCount', 2500000);
+                            animateCounter('countryCount', 145);
+                            animateCounter('conversationCount', 75000000);
+                            animateCounter('lessonCount', 120000000);
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            observer.observe(document.getElementById('statistics'));
+
+            // Interactive demo functionality
+            const adultInput = document.getElementById('adultInput');
+            const adultSendBtn = document.getElementById('adultSendBtn');
+            const adultConversation = document.getElementById('adultConversation');
+            
+            adultSendBtn.addEventListener('click', function() {
+                const userMessage = adultInput.value.trim();
+                if (userMessage) {
+                    // Add user message to conversation
+                    adultConversation.innerHTML += `
+                        <div class="flex items-start mb-4 justify-end">
+                            <div class="mr-3 bg-indigo-50 p-3 rounded-lg shadow-sm max-w-md">
+                                <p class="text-gray-700">${userMessage}</p>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-user text-gray-600 text-xs"></i>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Clear input
+                    adultInput.value = '';
+                    
+                    // Simulate AI response (in a real app, this would come from the AI backend)
+                    setTimeout(() => {
+                        let aiResponse = '';
+                        if (userMessage.toLowerCase().includes('background') || userMessage.toLowerCase().includes('experience')) {
+                            aiResponse = "Thank you for sharing your background. Your experience in marketing is impressive! Could you tell me more about how you've used data analytics in your previous roles?";
+                        } else if (userMessage.toLowerCase().includes('strength') || userMessage.toLowerCase().includes('weakness')) {
+                            aiResponse = "That's a thoughtful reflection on your strengths and areas for improvement. I noticed you used the phrase 'attention to detail' correctly. Your grammar is excellent!";
+                        } else {
+                            aiResponse = "That's interesting! Could you elaborate more on that point? I'm particularly impressed with your use of professional vocabulary.";
+                        }
+                        
+                        adultConversation.innerHTML += `
+                            <div class="flex items-start mb-4">
+                                <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white text-xs font-bold">AI</span>
+                                </div>
+                                <div class="ml-3 bg-white p-3 rounded-lg shadow-sm flex-1">
+                                    <p class="text-gray-700">${aiResponse}</p>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Scroll to bottom of conversation
+                        adultConversation.scrollTop = adultConversation.scrollHeight;
+                    }, 1000);
+                    
+                    // Scroll to bottom of conversation
+                    adultConversation.scrollTop = adultConversation.scrollHeight;
+                }
+            });
+            
+            // Allow Enter key to send message
+            adultInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    adultSendBtn.click();
+                }
+            });
+            
+            // Kids mode interaction
+            const kidsResponseBtns = document.querySelectorAll('.kids-response-btn');
+            const kidsConversation = document.getElementById('kidsConversation');
+            
+            kidsResponseBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const response = this.getAttribute('data-response');
+                    
+                    // Add kid's response to conversation
+                    kidsConversation.innerHTML += `
+                        <div class="flex items-start mb-4 justify-end">
+                            <div class="mr-3 bg-amber-50 p-3 rounded-lg shadow-sm">
+                                <p class="text-gray-700">${response}</p>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-child text-gray-600 text-xs"></i>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Simulate dragon response
+                    setTimeout(() => {
+                        let dragonResponse = '';
+                        if (response === 'Red') {
+                            dragonResponse = "Wow! Red is a wonderful color! It's the color of apples and fire trucks! Can you think of something else that is red?";
+                        } else if (response === 'Blue') {
+                            dragonResponse = "Blue is my favorite too! Like the sky and the ocean! Can you say 'blue ocean' with me?";
+                        } else if (response === 'Green') {
+                            dragonResponse = "Green is the color of grass and trees! Let's count three green things: 1. Grass, 2. Leaves, 3. Frogs!";
+                        }
+                        
+                        kidsConversation.innerHTML += `
+                            <div class="flex items-start mb-4">
+                                <div class="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-dragon text-white"></i>
+                                </div>
+                                <div class="ml-3 bg-white p-3 rounded-lg shadow-sm flex-1">
+                                    <p class="text-gray-700">${dragonResponse}</p>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Scroll to bottom of conversation
+                        kidsConversation.scrollTop = kidsConversation.scrollHeight;
+                    }, 1000);
+                    
+                    // Scroll to bottom of conversation
+                    kidsConversation.scrollTop = kidsConversation.scrollHeight;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
